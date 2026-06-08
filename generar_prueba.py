@@ -21,7 +21,7 @@ lineas.append(str(Q))
 pos_maxima = pos - 1
 
 for _ in range(Q):
-    op = random.randint(1, 6)
+    op = random.randint(1, 8)
 
     if op == 1:
         p = random.randint(1, pos_maxima)
@@ -44,6 +44,13 @@ for _ in range(Q):
         lineas.append(f"FREQUENCY {v}")
     elif op == 6:
         lineas.append(f"COUNT_RANGES")
+    # dentro de generar_prueba.py, en el bucle de Q
+    elif op == 7:
+        k = random.randint(1, 10)
+        lineas.append(f"TOP_K_FREQ {k}")
+    elif op == 8:
+        k = random.randint(1, 10)
+        lineas.append(f"TOP_K_VAL {k}")
 
 with open("entrada.txt", "w") as f:
     f.write("\n".join(lineas))

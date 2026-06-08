@@ -36,7 +36,7 @@ if __name__ == "__main__":
  
     tiempos = {"VALUE": 0, "SUM": 0, "UPDATE": 0, "FREQUENCY": 0,
                "MAX_RANGE": 0, "MIN_RANGE": 0, "DECOMPRESS": 0,
-               "COUNT_RANGES": 0, "MERGE": 0}
+               "COUNT_RANGES": 0, "MERGE": 0, "TOP_K_FREQ": 0, "TOP_K_VAL": 0}
     conteos = {k: 0 for k in tiempos}
  
     for op in operaciones:
@@ -47,6 +47,19 @@ if __name__ == "__main__":
             pos = int(op[1])
             resultado = almacen.value(pos)
             resultados.append(f"VALUE {pos} = {resultado}")
+        
+        elif nombre == "TOP_K_FREQ":
+            k = int(op[1])
+            top = almacen.top_k_by_frequency(k)
+            # Formato: (valor,freq) (valor,freq) ...
+            resultado_str = " ".join([f"({v},{f})" for v, f in top])
+            resultados.append(f"TOP_K_FREQ {k} = {resultado_str}")
+
+        elif nombre == "TOP_K_VAL":
+            k = int(op[1])
+            top = almacen.top_k_by_value(k)
+            resultado_str = " ".join([f"({v},{i},{f})" for v, i, f in top])
+            resultados.append(f"TOP_K_VAL {k} = {resultado_str}")
  
         elif nombre == "COUNT_RANGES":
             resultados.append(f"COUNT_RANGES = {almacen.count_ranges()}")
